@@ -1,25 +1,28 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import styled from "styled-components";
 
-class App extends Component {
+import Header from "./components/header";
+import Todo from "./components/todo";
+import Greeting from "./components/greeting";
+
+import "./App.css";
+import "./index.css";
+
+const Wrapper = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`
+class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <Header />
+        <Greeting />
+        <Wrapper>
+          <Todo title="Tasks" elems={["hw due in 2 days", "hw due in 2 days", "hw due in 2 days"]}/>
+          <Todo title="Events" elems={["birthday in 2 days", "birthday in 2 days", "birthday in 2 days"]}/>
+        </Wrapper>
       </div>
     );
   }
