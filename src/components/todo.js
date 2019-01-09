@@ -6,12 +6,17 @@ import TaskEvent from "./task_event";
 const Title = styled.p`
   font-size: 200%;
   font-family: 'Ubuntu', sans-serif;
-  color: #6b6b6b;
+  color: black;
 `
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: center;
+  background-color: white;
+  width: 30%;
+  border-radius: 25px;
+  box-shadow: 15px 15px 20px 0 rgba(0, 0, 0, .4);
 `
 const List = styled.ul`
   list-style-type: none;
@@ -20,6 +25,7 @@ const List = styled.ul`
 const ListElem = styled.li`
   margin-bottom: 20px;
   font-family: 'Source Sans Pro', sans-serif;
+  color: black;
 `
 class Todo extends React.Component {
   render() {

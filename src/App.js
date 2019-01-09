@@ -4,26 +4,43 @@ import styled from "styled-components";
 import Header from "./components/header";
 import Todo from "./components/todo";
 import Greeting from "./components/greeting";
+import Background from "./assets/images/background.jpeg";
 
 import "./App.css";
 import "./index.css";
 
-const Wrapper = styled.section`
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-image: url(${Background});
+  background-size: cover;
+`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  flex-grow: 1;
+  margin-bottom: 20px;
+`
+const VerticalLine = styled.div`
+  border-left: 2px solid #dddddd;
+`
+const HorizontalLine = styled.div`
+  border-bottom: 2px solid #dddddd;
 `
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <Container>
         <Header />
         <Greeting />
         <Wrapper>
           <Todo title="Tasks" elems={["hw due in 2 days", "hw due in 2 days", "hw due in 2 days"]}/>
           <Todo title="Events" elems={["birthday in 2 days", "birthday in 2 days", "birthday in 2 days"]}/>
         </Wrapper>
-      </div>
+      </Container>
     );
   }
 }
