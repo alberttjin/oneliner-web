@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.header`
-  /*background-color: #74a3a8;*/
+  width: 100%;
+  background-color: #86e888;
+  margin-bottom: 20px;
+  box-shadow: 0px 10px 5px rgba(0, 0, 0, .1);
   height: 50px;
   padding-top: 5px;
   padding-left: 10px;
