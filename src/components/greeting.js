@@ -13,9 +13,8 @@ const DateBg = styled.div`
   display: flex;
   justify-content: center;
   width: 20%;
-  background-color: rgba(255, 255, 255, .9);
-  box-shadow: 15px 15px 20px 0 rgba(0, 0, 0, .4);
-  border-radius: 25px;
+  background-color: rgba(255, 255, 255, .0);
+  box-shadow: 0px 0px 30px 0 rgba(0, 0, 0, .4);
 `
 class Greeting extends React.Component {
   render() {
@@ -25,8 +24,8 @@ class Greeting extends React.Component {
         <Moment 
           style={{
             fontSize: 80,
-            fontFamily:'Thasadith',
-            color: 'black',
+            fontFamily:'Ubuntu',
+            color: 'white',
           }} 
           format="MMM D"
         >
