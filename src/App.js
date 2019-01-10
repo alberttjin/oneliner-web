@@ -37,8 +37,8 @@ class App extends React.Component {
         <Header />
         <Greeting />
         <Wrapper>
-          <Todo title="Tasks" elems={["hw due in 2 days", "hw due in 2 days", "hw due in 2 days"]}/>
-          <Todo title="Events" elems={["birthday in 2 days", "birthday in 2 days", "birthday in 2 days"]}/>
+          <Todo title="Tasks" elems={[{id: 1, name: "hw due in 2 days"}, {id: 2, name: "hw due in 3 days"}]}/>
+          <Todo title="Events" elems={[{id: 3, name: "birthday in 2 days"}, {id: 4, name: "birthday in 3 days"}]}/>
         </Wrapper>
       </Container>
     );
