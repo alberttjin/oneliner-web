@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Container = styled.header`
   /*background-color: #74a3a8;*/
   height: 50px;
+  padding-top: 5px;
   padding-left: 10px;
 `
 const LogoOne = styled.p`
@@ -27,6 +28,7 @@ const Logo = () => {
     </LogoContainer>
   );
 }
+
 class Header extends React.Component {
   render() {
     return (
