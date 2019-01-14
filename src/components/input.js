@@ -14,10 +14,12 @@ const Container = styled.form`
 const InputStyled = styled.input`
   border-radius: 5px 0px 0px 5px;
   -webkit-border-radius: 5px 0px 0px 5px;
-  width: 50%;
-  resize: none;
+  width: 30%;
+  height: 35px;
   border: none;
+  outline: none;
   box-shadow: 15px 15px 20px 0 rgba(0, 0, 0, .4);
+  padding-left: 10px;
   font: 1em/1.25em Arial, Helvetica, sans-serif;
 `
 
@@ -29,12 +31,26 @@ const SubmitStyled = styled.input`
   background: white;
   outline: none;
   -webkit-border-radius: 0px 5px 5px 0px;
+  color: grey;
 `
 
 class Input extends React.Component {
 
   state = {
-    value: 'albee kun is gay',
+    value: '',
+    hovered: false,
+  }
+
+  handleHover = () => {
+    this.setState({
+      hovered: true,
+    });
+  }
+
+  handleNotHover = () => {
+    this.setState({
+      hovered: false,
+    });
   }
 
   handleChange = (event) => {
@@ -42,15 +58,23 @@ class Input extends React.Component {
   }
 
   handleSubmit = (event) => {
-    alert('A gay was submitted: ' + this.state.value);
+    alert(this.state.value);
     event.preventDefault();
   }
 
   render() {
+    const text_color = this.state.hovered ? '#72c9ff' : 'grey';
+    const placeholder = "Try \"Math homework due in 3 days\""
     return (
       <Container onSubmit={this.handleSubmit}>
-        <InputStyled type="text" value={this.state.value} onChange={this.handleChange} />
-        <SubmitStyled type="submit" value=">"/>
+        <InputStyled type="text" placeholder = {placeholder} onChange={this.handleChange} />
+        <SubmitStyled
+          type="submit"
+          value=">"
+          onMouseEnter={this.handleHover}
+          onMouseLeave={this.handleNotHover}
+          style={{color: text_color}}
+        />
       </Container>
     );
   }
