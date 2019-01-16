@@ -24,9 +24,6 @@ const ModalMain = styled.section`
   transform: translate(-50%,-50%);
   border-radius: 15px;
   padding-bottom: 20px;
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
 `
 
 const InputStyled = styled.input`
@@ -87,7 +84,7 @@ const Title = styled.p`
   padding-left: 7.5%;
 `
 
-class Login extends React.Component {
+class SignUp extends React.Component {
   state = {
     username: "",
     email: "",
@@ -97,6 +94,11 @@ class Login extends React.Component {
   handleEmailInput = (event) => {
     this.setState({email: event.target.value});
   }
+
+  handleUsernameInput = (event) => {
+    this.setState({username: event.target.value});
+  }
+
   handlePasswordInput = (event) => {
     this.setState({password: event.target.value});
   }
@@ -108,17 +110,19 @@ class Login extends React.Component {
 
   render() {
     const { show, handleClose } = this.props;
+    console.log("rendered sign up");
     const show_hide = show ? {'display': 'block'} : {'display': 'none'}
     return (
       <Modal style={show_hide}>
         <ModalMain>
           <RowWrapper>
-            <Title>Login</Title>
+            <Title>Sign Up!</Title>
             <CloseStyled onClick={handleClose}>X</CloseStyled>
           </RowWrapper>
           <form onSubmit={this.handleSubmit}>
             <ColumnWrapper>
               <InputStyled placeholder={"Email"} onChange={this.handleEmailInput}/>
+              <InputStyled placeholder={"Username"} onChange={this.handleUsernameInput}/>
               <InputStyled placeholder={"Password"} onChange={this.handlePasswordInput}/>
               <SubmitStyled type="submit" value="Log In"/>
             </ColumnWrapper>
@@ -130,4 +134,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default SignUp;

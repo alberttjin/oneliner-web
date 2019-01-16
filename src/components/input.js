@@ -32,6 +32,7 @@ const SubmitStyled = styled.input`
   outline: none;
   -webkit-border-radius: 0px 5px 5px 0px;
   color: grey;
+  cursor: pointer;
 `
 
 class Input extends React.Component {
