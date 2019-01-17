@@ -11,7 +11,7 @@ const Modal = styled.div`
   left: 0;
   width:100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
 `
 
 const ModalMain = styled.section`
@@ -94,9 +94,24 @@ class Login extends React.Component {
     password: "",
   }
 
+  componentWillMount = () => {
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount = () => {
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+    if (!this.node.contains(e.target)) {
+      this.props.handleClose();
+    }
+  }
+
   handleEmailInput = (event) => {
     this.setState({email: event.target.value});
   }
+
   handlePasswordInput = (event) => {
     this.setState({password: event.target.value});
   }
@@ -111,7 +126,7 @@ class Login extends React.Component {
     const show_hide = show ? {'display': 'block'} : {'display': 'none'}
     return (
       <Modal style={show_hide}>
-        <ModalMain>
+        <ModalMain ref={node => this.node = node}>
           <RowWrapper>
             <Title>Login</Title>
             <CloseStyled onClick={handleClose}>X</CloseStyled>
