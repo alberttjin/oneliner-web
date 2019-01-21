@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import Home from "./home";
-import Welcome from "./welcome";
+import { login } from "../utils/api";
 
 const Modal = styled.div`
   position: fixed;
@@ -95,6 +95,7 @@ class Login extends React.Component {
   }
 
   componentWillMount = () => {
+    console.log(login("albert", "albert"));
     document.addEventListener('mousedown', this.handleClick, false);
   }
 
@@ -108,8 +109,8 @@ class Login extends React.Component {
     }
   }
 
-  handleEmailInput = (event) => {
-    this.setState({email: event.target.value});
+  handleUsernameInput = (event) => {
+    this.setState({username: event.target.value});
   }
 
   handlePasswordInput = (event) => {
@@ -117,8 +118,8 @@ class Login extends React.Component {
   }
 
   handleSubmit = (event) => {
-    alert(this.state.email + this.state.password);
-    event.preventDefault();
+    const token = login(this.state.username, this.state.password);
+    console.log(token);
   }
 
   render() {
@@ -133,7 +134,7 @@ class Login extends React.Component {
           </RowWrapper>
           <form onSubmit={this.handleSubmit}>
             <ColumnWrapper>
-              <InputStyled placeholder={"Email"} onChange={this.handleEmailInput}/>
+              <InputStyled placeholder={"Username"} onChange={this.handleUsernameInput}/>
               <InputStyled placeholder={"Password"} onChange={this.handlePasswordInput}/>
               <SubmitStyled type="submit" value="Log In"/>
             </ColumnWrapper>

@@ -123,7 +123,6 @@ class SignUp extends React.Component {
 
   render() {
     const { show, handleClose } = this.props;
-    console.log("rendered sign up");
     const show_hide = show ? {'display': 'block'} : {'display': 'none'}
     return (
       <Modal style={show_hide}>
