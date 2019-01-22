@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
-import Home from "./home";
 import { login } from "../utils/api";
 
 const Modal = styled.div`
@@ -41,7 +40,7 @@ const InputStyled = styled.input`
   border: 1px solid lightgrey;
 `
 
-const SubmitStyled = styled.input`
+const SubmitStyled = styled.button`
   font: 1em/1.25em Arial, Helvetica, sans-serif;
   background: #4accf7;
   color: white;
@@ -92,15 +91,17 @@ class Login extends React.Component {
     username: "",
     email: "",
     password: "",
+    token: "",
   }
 
   componentWillMount = () => {
-    console.log(login("albert", "albert"));
     document.addEventListener('mousedown', this.handleClick, false);
+    document.addEventListener('keydown', this.handleEnter);
   }
 
   componentWillUnmount = () => {
     document.removeEventListener('mousedown', this.handleClick, false);
+    document.removeEventListener('keydown', this.handleEnter);
   }
 
   handleClick = (e) => {
@@ -117,32 +118,41 @@ class Login extends React.Component {
     this.setState({password: event.target.value});
   }
 
-  handleSubmit = (event) => {
-    const token = login(this.state.username, this.state.password);
-    console.log(token);
+  handleSubmit = async() => {
+    const token = await login(this.state.username, this.state.password);
+    this.setState({token: token});
+  }
+
+  handleEnter = (event) => {
+    if (event.key === 'Enter') {
+      this.handleSubmit();
+    }
   }
 
   render() {
     const { show, handleClose } = this.props;
     const show_hide = show ? {'display': 'block'} : {'display': 'none'}
-    return (
-      <Modal style={show_hide}>
-        <ModalMain ref={node => this.node = node}>
-          <RowWrapper>
-            <Title>Login</Title>
-            <CloseStyled onClick={handleClose}>X</CloseStyled>
-          </RowWrapper>
-          <form onSubmit={this.handleSubmit}>
+    if (this.state.token) {
+      return <Redirect to={{pathname: '/home', state: {token: this.state.token}}}/>
+    } else {
+      return (
+        <Modal style={show_hide}>
+          <ModalMain ref={node => this.node = node}>
+            <RowWrapper>
+              <Title>Login</Title>
+              <CloseStyled onClick={handleClose}>X</CloseStyled>
+            </RowWrapper>
             <ColumnWrapper>
               <InputStyled placeholder={"Username"} onChange={this.handleUsernameInput}/>
               <InputStyled placeholder={"Password"} onChange={this.handlePasswordInput}/>
-              <SubmitStyled type="submit" value="Log In"/>
+              <SubmitStyled type="button" onClick={this.handleSubmit}>
+                Log In
+              </SubmitStyled>
             </ColumnWrapper>
-          </form>
-          
-        </ModalMain>
-      </Modal>
-    );
+          </ModalMain>
+        </Modal>
+      );
+    }
   }
 }
 

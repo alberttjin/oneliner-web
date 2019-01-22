@@ -1,7 +1,5 @@
-export const login = (username, password) => {
-  console.log("import export working");
-  let token;
-  fetch('http://localhost:8000/api/login', {
+export const login = async (username, password) => {
+  const response = await fetch('http://localhost:8000/api/login', {
     method: 'POST',
     headers: {
         'Accept': 'application/json',
@@ -11,13 +9,16 @@ export const login = (username, password) => {
         username: username,
         password: password,
     })
-  }).then(results => {
-    console.log(results);
-    return results.json();
-  }).then(data => {
-    console.log(data);
-    token = data["token"];
-    console.log(token);
-  });
+  })
+  const json = await response.json();
+  const token = json["token"];
   return token;
+}
+
+export const getTasks = async () => {
+
+}
+
+export const getEvents = async () => {
+  
 }

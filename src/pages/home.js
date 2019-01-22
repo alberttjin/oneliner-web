@@ -25,18 +25,13 @@ const Wrapper = styled.div`
   flex-grow: 1;
   margin-bottom: 20px;
 `
-const VerticalLine = styled.div`
-  border-left: 2px solid #dddddd;
-`
-const HorizontalLine = styled.div`
-  border-bottom: 2px solid #dddddd;
-`
 
 class Home extends React.Component {
   componentDidMount = () => {
     document.title = "OneLiner";
   }
   render() {
+    console.log(this.props.location.state.token);
     return (
       <Container>
         <Header />
