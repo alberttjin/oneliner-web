@@ -15,10 +15,20 @@ export const login = async (username, password) => {
   return token;
 }
 
-export const getTasks = async () => {
-
+export const getTasks = async (token, start_date, end_date) => {
+  const response = await fetch(`http://localhost:8000/api/tasks?start_date=${start_date}&end_date=${end_date}`, {
+    method: 'GET',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + token,
+    },
+  })
+  const json = await response.json();
+  console.log(json)
+  return json;
 }
 
 export const getEvents = async () => {
-  
+
 }

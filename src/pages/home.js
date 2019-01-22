@@ -6,6 +6,7 @@ import Todo from "../components/todo";
 import Greeting from "../components/greeting";
 import Background from "../assets/images/background.jpeg";
 import Input from "../components/input";
+import {getTasks}  from "../utils/api";
 
 import "../index.css";
 
@@ -28,6 +29,7 @@ const Wrapper = styled.div`
 
 class Home extends React.Component {
   componentDidMount = () => {
+    getTasks(this.props.location.state.token, "2018-10-01", "2018-11-01");
     document.title = "OneLiner";
   }
   render() {
