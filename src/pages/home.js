@@ -33,7 +33,7 @@ class Home extends React.Component {
     document.title = "OneLiner";
   }
   render() {
-    console.log(this.props.location.state.token);
+    console.log(document.cookie);
     return (
       <Container>
         <Header />
