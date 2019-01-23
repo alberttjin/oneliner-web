@@ -133,7 +133,9 @@ class Login extends React.Component {
     const { show, handleClose } = this.props;
     const show_hide = show ? {'display': 'block'} : {'display': 'none'}
     if (this.state.token) {
-      return <Redirect to={{pathname: '/home', state: {token: this.state.token}}}/>
+      // If token => store in cookie
+      document.cookie = 'access_token=' + this.state.token;
+      return <Redirect to={{pathname: '/home', state: {token: this.state.token}}}/>;
     } else {
       return (
         <Modal style={show_hide}>
