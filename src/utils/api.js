@@ -25,8 +25,22 @@ export const getTasks = async (token, start_date, end_date) => {
     },
   })
   const json = await response.json();
-  console.log(json)
-  return json;
+  const result = [];
+  let i;
+  for (i in json) {
+    const task = json[i]
+    result.push(
+      {
+        id: task["id"],
+        name: task["name"],
+        date: task["date"],
+        repeat_inf: task["repeat_inf"],
+        repeat_times: task["repeat_times"],
+      }
+    )
+  }
+  console.log(result);
+  return result;
 }
 
 export const getEvents = async () => {
