@@ -29,20 +29,40 @@ export const getTasks = async (token, start_date, end_date) => {
   let i;
   for (i in json) {
     const task = json[i]
-    result.push(
-      {
+    result.push({
         id: task["id"],
         name: task["name"],
         date: task["date"],
         repeat_inf: task["repeat_inf"],
         repeat_times: task["repeat_times"],
-      }
-    )
+    });
   }
   console.log(result);
   return result;
 }
 
-export const getEvents = async () => {
-
+export const getEvents = async (token, start_date, end_date) => {
+  const response = await fetch(`http://localhost:8000/api/events?start_date=${start_date}&end_date=${end_date}`, {
+    method: 'GET',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + token,
+    },
+  })
+  const json = await response.json();
+  console.log(json);
+  const result = [];
+  let i;
+  for (i in json) {
+    const event = json[i]
+    result.push({
+        id: event["id"],
+        name: event["name"],
+        date: event["date"],
+        repeat_inf: event["repeat_inf"],
+        repeat_times: event["repeat_times"],
+    });
+  }
+  return result;
 }
