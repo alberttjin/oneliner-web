@@ -9,21 +9,18 @@ const Title = styled.p`
   font-size: 200%;
   font-family: 'Ubuntu', sans-serif;
   color: black;
-  border-bottom: 1px solid rgba(0, 0, 0, .4);
   margin: 0;
   padding-bottom: 25px;
   padding-top: 25px;
   width: 100%;
 `
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   background-color: rgba(255, 255, 255, .9);
   width: 30%;
   border-radius: 25px;
   box-shadow: 15px 15px 20px 0 rgba(0, 0, 0, .4);
+  height: 400px;
+  overflow-y: scroll;
 `
 const List = styled.div`
   display: flex;

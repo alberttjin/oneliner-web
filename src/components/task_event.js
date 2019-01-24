@@ -12,7 +12,7 @@ const ListElem = styled.p`
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid rgba(0, 0, 0, .4);
+  border-top: 1px solid rgba(0, 0, 0, .4);
   width: 100%;
   margin: 0;
   padding-top: 10px;
