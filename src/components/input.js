@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { MdKeyboardArrowRight } from 'react-icons/md';
+import { IconContext } from 'react-icons';
 
 const Container = styled.form`
   display: flex;
@@ -23,7 +25,7 @@ const InputStyled = styled.input`
   font: 1em/1.25em Arial, Helvetica, sans-serif;
 `
 
-const SubmitStyled = styled.input`
+const SubmitStyled = styled.button`
   border: none;
   box-shadow: 15px 15px 20px 0 rgba(0, 0, 0, .4);
   font: 1em/1.25em Arial, Helvetica, sans-serif;
@@ -36,6 +38,10 @@ const SubmitStyled = styled.input`
   &:hover {
     color: #72c9ff;
   }
+  height: 37px;
+  padding: 0;
+  margin: 0;
+  padding-right: 5px;
 `
 
 class Input extends React.Component {
@@ -57,12 +63,11 @@ class Input extends React.Component {
     return (
       <Container onSubmit={this.handleSubmit}>
         <InputStyled type="text" placeholder = {placeholder} onChange={this.handleChange} />
-        <SubmitStyled
-          type="submit"
-          value=">"
-          onMouseEnter={this.handleHover}
-          onMouseLeave={this.handleNotHover}
-        />
+        <SubmitStyled type="submit">
+          <IconContext.Provider value={{size: 20}}>
+            <MdKeyboardArrowRight />
+          </IconContext.Provider>
+        </SubmitStyled>
       </Container>
     );
   }

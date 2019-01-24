@@ -7,6 +7,7 @@ const ListElem = styled.p`
   font-family: 'Source Sans Pro', sans-serif;
   margin: 0;
   padding: 0;
+  margin-left: 5px;
 `
 
 const Container = styled.div`
@@ -31,25 +32,44 @@ const Check = styled.button`
     color: blue;
   }
   cursor: pointer;
+  width: 30px;
+  height: 25px;
 `
 
 
 class TaskEvent extends React.Component {
+  state = {
+    hovered: false,
+  }
+  
+  handleHover = () => {
+    this.setState({
+      hovered: true,
+    });
+  }
+
+  handleNotHover = () => {
+    this.setState({
+      hovered: false,
+    });
+  }
+  
   render() {
     const { name } = this.props;
+    const check = this.state.hovered ? 
+      <Check>
+        <IconContext.Provider value={{size: 20}}>
+          <MdCheck />
+        </IconContext.Provider>
+      </Check> :
+      <Check></Check>
     return (
-      <Container>
-        <Check>
-          <IconContext.Provider value={{size: 20}}>
-            <MdCheck />
-          </IconContext.Provider>
-        </Check>
-        <ListElem
-          onMouseEnter={this.handleHover}
-          onMouseLeave={this.handleNotHover}
-        >
-          {name}
-        </ListElem>
+      <Container
+        onMouseEnter={this.handleHover}
+        onMouseLeave={this.handleNotHover}
+      >
+        {check}
+        <ListElem>{name}</ListElem>
       </Container>
     );
   }
