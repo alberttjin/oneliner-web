@@ -33,25 +33,14 @@ const SubmitStyled = styled.input`
   -webkit-border-radius: 0px 5px 5px 0px;
   color: grey;
   cursor: pointer;
+  &:hover {
+    color: #72c9ff;
+  }
 `
 
 class Input extends React.Component {
-
   state = {
     value: '',
-    hovered: false,
-  }
-
-  handleHover = () => {
-    this.setState({
-      hovered: true,
-    });
-  }
-
-  handleNotHover = () => {
-    this.setState({
-      hovered: false,
-    });
   }
 
   handleChange = (event) => {
@@ -64,7 +53,6 @@ class Input extends React.Component {
   }
 
   render() {
-    const text_color = this.state.hovered ? '#72c9ff' : 'grey';
     const placeholder = "Try \"Math homework due in 3 days\""
     return (
       <Container onSubmit={this.handleSubmit}>
@@ -74,7 +62,6 @@ class Input extends React.Component {
           value=">"
           onMouseEnter={this.handleHover}
           onMouseLeave={this.handleNotHover}
-          style={{color: text_color}}
         />
       </Container>
     );
