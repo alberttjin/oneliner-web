@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Redirect } from "react-router-dom";
 
 import Header from "../components/header";
 import Todo from "../components/todo";
@@ -7,6 +8,8 @@ import Greeting from "../components/greeting";
 import Background from "../assets/images/background.jpeg";
 import Input from "../components/input";
 import {getTasks}  from "../utils/api";
+import {removeCookie, check, checkCookie} from "../utils/util"
+import * as consts from "../utils/constants"
 
 import "../index.css";
 
@@ -32,6 +35,7 @@ class Home extends React.Component {
     tasks: [],
     events: [],
   }
+
   componentDidMount = async () => {
     const tasks =  await getTasks(this.props.location.state.token, "2018-10-01", "2018-11-01");
     this.setState({
@@ -39,19 +43,32 @@ class Home extends React.Component {
     });
     document.title = "OneLiner";
   }
+
+  handleSignOut = () => {
+    removeCookie(consts.ACCESS_TOKEN_KEY)
+    this.forceUpdate();
+  }
+
   render() {
     console.log(document.cookie);
-    return (
-      <Container>
-        <Header />
-        <Greeting />
-        <Input />
-        <Wrapper>
-          <Todo title="Tasks" elems={this.state.tasks}/>
-          <Todo title="Events" elems={[{id: 3, name: "birthday in 2 days"}, {id: 4, name: "birthday in 3 days"}]}/>
-        </Wrapper>
-      </Container>
-    );
+    if (checkCookie(consts.ACCESS_TOKEN_KEY) === -1) {
+      return <Redirect to={{pathname: '/'}}/>;
+    } else {
+      return (
+        <Container>
+          <button onClick={this.handleSignOut}>
+              SIGN OUT TEMP
+          </button>
+          <Header />
+          <Greeting />
+          <Input />
+          <Wrapper>
+            <Todo title="Tasks" elems={this.state.tasks}/>
+            <Todo title="Events" elems={[{id: 3, name: "birthday in 2 days"}, {id: 4, name: "birthday in 3 days"}]}/>
+          </Wrapper>
+        </Container>
+      );
+    }
   }
 }
 

@@ -1,6 +1,8 @@
 import React from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { Redirect } from "react-router-dom";
+import {getCookie, checkCookie} from "../utils/util";
+import * as consts from "../utils/constants"
 
 import Login from "./login";
 import SignUp from "./signup";
@@ -40,23 +42,9 @@ class Welcome extends React.Component {
     });
   }
 
-  checkCookie = (name) => {
-    var keyIndex = document.cookie.indexOf("; " + name + "=");
-    if (keyIndex === -1) {
-      return false;
-    }
-    return true;
-  }
-
-  getCookie = (name) => {
-    var value = "; " + document.cookie;
-    var parts = value.split("; " + name + "=");
-    if (parts.length == 2) return parts.pop().split(";").shift();
-  }
-
   render() {
-    if (this.checkCookie("access_token")) {
-      return <Redirect to={{pathname: '/home', state: {token: this.getCookie("access_token")}}}/>;
+    if (checkCookie(consts.ACCESS_TOKEN_KEY) !== -1) {
+      return <Redirect to={{pathname: '/home', state: {token: getCookie(consts.ACCESS_TOKEN_KEY)}}}/>;
     } else {
       return (
         <div>

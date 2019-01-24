@@ -37,7 +37,6 @@ export const getTasks = async (token, start_date, end_date) => {
         repeat_times: task["repeat_times"],
     });
   }
-  console.log(result);
   return result;
 }
 
@@ -51,7 +50,6 @@ export const getEvents = async (token, start_date, end_date) => {
     },
   })
   const json = await response.json();
-  console.log(json);
   const result = [];
   let i;
   for (i in json) {

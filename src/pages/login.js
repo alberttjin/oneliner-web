@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 
 import { login } from "../utils/api";
+import * as consts from "../utils/constants"
 
 const Modal = styled.div`
   position: fixed;
@@ -134,7 +135,7 @@ class Login extends React.Component {
     const show_hide = show ? {'display': 'block'} : {'display': 'none'}
     if (this.state.token) {
       // If token => store in cookie
-      document.cookie = 'access_token=' + this.state.token;
+      document.cookie = consts.ACCESS_TOKEN_KEY+ '=' + this.state.token;
       return <Redirect to={{pathname: '/home', state: {token: this.state.token}}}/>;
     } else {
       return (
