@@ -13,6 +13,7 @@ const Title = styled.p`
   padding-bottom: 25px;
   padding-top: 25px;
   width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, .4);
 `
 const Container = styled.div`
   background-color: rgba(255, 255, 255, .9);

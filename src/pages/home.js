@@ -8,7 +8,7 @@ import Greeting from "../components/greeting";
 import Background from "../assets/images/background.jpeg";
 import Input from "../components/input";
 import {getTasks}  from "../utils/api";
-import {removeCookie, check, checkCookie} from "../utils/util"
+import {checkCookie} from "../utils/util"
 import * as consts from "../utils/constants"
 
 
@@ -45,11 +45,6 @@ class Home extends React.Component {
     document.title = "OneLiner";
   }
 
-  handleSignOut = () => {
-    removeCookie(consts.ACCESS_TOKEN_KEY)
-    this.forceUpdate();
-  }
-
   render() {
     console.log(document.cookie);
     if (checkCookie(consts.ACCESS_TOKEN_KEY) === -1) {
@@ -57,9 +52,6 @@ class Home extends React.Component {
     } else {
       return (
         <Container>
-          <button onClick={this.handleSignOut}>
-              SIGN OUT TEMP
-          </button>
           <Header />
           <Greeting />
           <Input />

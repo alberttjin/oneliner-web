@@ -22,7 +22,7 @@ const InputStyled = styled.input`
   outline: none;
   box-shadow: 15px 15px 20px 0 rgba(0, 0, 0, .4);
   padding-left: 10px;
-  font: 1em/1.25em Arial, Helvetica, sans-serif;
+  font: .75em/1em Arial, Helvetica, sans-serif;
 `
 
 const SubmitStyled = styled.button`

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { MdSettings } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 
+import Settings from './settings';
+
 const Container = styled.header`
   display: flex;
   flex-direction: row;
@@ -39,7 +41,7 @@ const Gear = styled.button`
     color: blue;
   }
   cursor: pointer;
-  margin-right: 20px;
+  margin-right: 125px;
 `
 
 const Logo = () => {
@@ -53,15 +55,38 @@ const Logo = () => {
 }
 
 class Header extends React.Component {
+  state = {
+    show_settings: false,
+  }
+
+  handleGearClick = () => {
+    if (this.state.show_settings) {
+      this.setState({
+        show_settings: false,
+      });
+    } else {
+      this.setState({
+        show_settings: true,
+      });
+    }
+  }
+
+  hideSettings = () => {
+    this.setState({
+      show_settings: false,
+    });
+  }
+
   render() {
     return (
     <Container>
       <Logo />
-      <Gear>
+      <Gear onClick={this.handleGearClick}>
         <IconContext.Provider value={{size: 20}}>
           <MdSettings />
         </IconContext.Provider>
       </Gear>
+      <Settings show={this.state.show_settings} handleClose={this.hideSettings}/>
     </Container>
     );
   }
