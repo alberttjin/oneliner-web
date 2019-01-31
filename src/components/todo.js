@@ -15,6 +15,7 @@ const Title = styled.p`
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, .4);
 `
+
 const Container = styled.div`
   background-color: rgba(255, 255, 255, .9);
   width: 30%;
@@ -22,6 +23,7 @@ const Container = styled.div`
   box-shadow: 15px 15px 20px 0 rgba(0, 0, 0, .4);
   height: 400px;
   overflow-y: scroll;
+  ::-webkit-scrollbar {display:none;}
 `
 const List = styled.div`
   display: flex;
@@ -38,8 +40,8 @@ class Todo extends React.Component {
     })
     return (
     <Container>
-        <Title>{title}</Title>
-        <List>{elemsList}</List>
+      <Title>{title}</Title>
+      <List>{elemsList}</List>
     </Container>
     );
   }
