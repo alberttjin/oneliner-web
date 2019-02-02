@@ -11,11 +11,12 @@ import {
   MDBDropdownMenu,
   MDBDropdownItem,
 } from "mdbreact";
+import { Parallax, Background } from 'react-parallax';
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 import {getCookie, checkCookie} from "../utils/util";
 import * as consts from "../utils/constants"
-import Background from "../assets/images/working.jpg";
+// import Background from "../assets/images/working.jpg";
 
 import Login from "./login";
 import SignUp from "./signup";
@@ -26,11 +27,6 @@ const Header_Container = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-`
-
-const Container = styled.div`
-  background-image: url(${Background});
-  background-size: cover;
 `
 
 const Header_One = styled.p`
@@ -78,51 +74,70 @@ class Welcome extends React.Component {
     });
   }
 
+  // style={{backgroundColor: "rgba(0, 0, 0, 0.5)"}}
+
   render() {
     if (checkCookie(consts.ACCESS_TOKEN_KEY) !== -1) {
       return <Redirect to={{pathname: '/home', state: {token: getCookie(consts.ACCESS_TOKEN_KEY)}}}/>;
     } else {
       return (
-        <Container>
+          <div>
+            
+            <Parallax
+              bgImage={require('../assets/images/working.jpg')}
+              blur={1}
+              strength={300}
+            >
+              
+              <MDBNavbar style={{backgroundColor: "rgba(0, 0, 0, 0.5)"}} dark expand="md">
+                <MDBNavbarBrand>
+                  <strong className="white-text">OneLiner</strong>
+                </MDBNavbarBrand>
+                  <MDBNavbarNav left>
+                  </MDBNavbarNav>
+                  <MDBNavbarNav right>
+                    <MDBNavItem className="px-3">
+                      <MDBNavLink className="waves-effect waves-light" to="">
+                        <MDBIcon icon="cog" className="mr-1" /> Settings
+                      </MDBNavLink>
+                    </MDBNavItem>
+                    <MDBNavItem className="px-3">
+                      <MDBDropdown>
+                        <MDBDropdownToggle nav caret>
+                          <MDBIcon icon="user" className="mr-1" />Profile
+                        </MDBDropdownToggle>
+                        <MDBDropdownMenu className="dropdown-default" right>
+                          <MDBDropdownItem onClick={this.showLogin}>Login</MDBDropdownItem>
+                          <MDBDropdownItem onClick={this.showSignUp}>Sign Up</MDBDropdownItem>
+                        </MDBDropdownMenu>
+                      </MDBDropdown>
+                    </MDBNavItem>
+                  </MDBNavbarNav>
+              </MDBNavbar>
+              
+              <Header_Container>
 
-          <MDBNavbar style={{backgroundColor: "rgba(0, 0, 0, 0.5)"}} dark expand="md">
-            <MDBNavbarBrand>
-              <strong className="white-text">OneLiner</strong>
-            </MDBNavbarBrand>
-              <MDBNavbarNav left>
-              </MDBNavbarNav>
-              <MDBNavbarNav right>
-                <MDBNavItem className="px-3">
-                  <MDBNavLink className="waves-effect waves-light" to="">
-                    <MDBIcon icon="cog" className="mr-1" /> Settings
-                  </MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem className="px-3">
-                  <MDBDropdown>
-                    <MDBDropdownToggle nav caret>
-                      <MDBIcon icon="user" className="mr-1" />Profile
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu className="dropdown-default" right>
-                      <MDBDropdownItem onClick={this.showLogin}>Login</MDBDropdownItem>
-                      <MDBDropdownItem onClick={this.showSignUp}>Sign Up</MDBDropdownItem>
-                    </MDBDropdownMenu>
-                  </MDBDropdown>
-                </MDBNavItem>
-              </MDBNavbarNav>
-          </MDBNavbar>
+                <Header_One>One</Header_One>
+                <Header_Liner>Liner</Header_Liner>
 
-          <Header_Container>
+                <Login show={this.state.showLogin} handleClose={this.hideLogin}/>
+                <SignUp show={this.state.showSignUp} handleClose={this.hideSignUp}/>
 
-            <Header_One>One</Header_One>
-            <Header_Liner>Liner</Header_Liner>
-
-            <Login show={this.state.showLogin} handleClose={this.hideLogin}/>
-            <SignUp show={this.state.showSignUp} handleClose={this.hideSignUp}/>
-
-          </Header_Container>
-        
-          
-        </Container>
+              </Header_Container>
+            
+            </Parallax>
+            <Parallax 
+              strength={200}
+              blur={2}
+              bgImage={require('../assets/images/sana.jpg')}
+              style={{
+                border: "30px solid white"
+              }}
+            >
+              <Header_Container></Header_Container>
+              
+            </Parallax>
+          </div>
       );
     }
     
