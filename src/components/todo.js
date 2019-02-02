@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { completeTask, getTasks } from "../utils/api";
 
 import TaskEvent from "./task_event";
+import './animations.css';
 
 const Title = styled.p`
   display: flex;
@@ -32,16 +35,41 @@ const List = styled.div`
   width: 100%;
 `
 class Todo extends React.Component {
+  state = {
+    todos: []
+  }
+
+  componentDidMount = async () => {
+    const tasks =  await getTasks(this.props.token, "2018-10-01", "2018-11-01");
+    this.setState({
+      todos: tasks,
+    });
+  }
+
+  deleteTask = (id, token) => {
+    console.log(token)
+    completeTask(token, id);
+    const filtered_todos = this.state.todos.filter(todo => todo.id != id);
+    this.setState({
+      todos: filtered_todos,
+    })
+  }
 
   render() {
-    const { title, elems } = this.props;
-    const elemsList = elems.map((todo) => {
-      return <TaskEvent key={todo.id} id={todo.id} name={todo.name} />;
+    const { title } = this.props;
+    const todos = this.state.todos;
+    const todos_list = todos.map((todo) => {
+      return <TaskEvent key={todo.id} id={todo.id} name={todo.name} deleteTask={this.deleteTask} type={title}/>;
     })
     return (
     <Container>
       <Title>{title}</Title>
-      <List>{elemsList}</List>
+      <ReactCSSTransitionGroup
+          transitionName="fade"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+      {todos_list}
+      </ReactCSSTransitionGroup>
     </Container>
     );
   }

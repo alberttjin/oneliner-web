@@ -64,3 +64,17 @@ export const getEvents = async (token, start_date, end_date) => {
   }
   return result;
 }
+
+export const completeTask = async (token, id) => {
+  const response = await fetch('http://localhost:8000/api/complete-task', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + token,
+    },
+    body: JSON.stringify({
+        id: id,
+    })
+  })
+}

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { MdCheck } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 
+import { TokenConsumer } from "../pages/home";
+
 const ListElem = styled.p`
   font-family: 'Source Sans Pro', sans-serif;
   margin: 0;
@@ -29,7 +31,10 @@ const Check = styled.button`
   background-color: inherit;
   color: green;
   &:hover {
-    color: blue;
+    opacity: 0.5;
+  }
+  &:focus {
+    outline: none;
   }
   cursor: pointer;
   width: 30px;
@@ -55,22 +60,27 @@ class TaskEvent extends React.Component {
   }
   
   render() {
-    const { name } = this.props;
-    const check = this.state.hovered ? 
-      <Check>
-        <IconContext.Provider value={{size: 20}}>
-          <MdCheck />
-        </IconContext.Provider>
-      </Check> :
-      <Check></Check>
+    const { id, name, deleteTask } = this.props;
     return (
-      <Container
-        onMouseEnter={this.handleHover}
-        onMouseLeave={this.handleNotHover}
-      >
-        {check}
-        <ListElem>{name}</ListElem>
-      </Container>
+      <TokenConsumer>
+        {({ token }) => (
+          <Container
+          onMouseOverCapture={this.handleHover}
+          onMouseEnter={this.handleHover}
+          onMouseLeave={this.handleNotHover}
+          >
+            <Check onClick={() => deleteTask(id, token)}>
+              {this.state.hovered ?
+                <IconContext.Provider value={{size: 20}}>
+                  <MdCheck />
+                </IconContext.Provider> :
+                null
+              }
+            </Check>
+            <ListElem>{name}</ListElem>
+          </Container>
+        )}
+      </TokenConsumer>
     );
   }
 }
