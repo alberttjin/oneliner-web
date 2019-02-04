@@ -23,6 +23,7 @@ const Container = styled.div`
   &:hover {
     background: #e0e0e0;
   }
+  justify-content: space-between;
 `
 
 const Check = styled.button`
@@ -41,6 +42,16 @@ const Check = styled.button`
   height: 25px;
 `
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+const Time = styled.p`
+  color: grey;
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+`
 
 class TaskEvent extends React.Component {
   state = {
@@ -60,7 +71,7 @@ class TaskEvent extends React.Component {
   }
   
   render() {
-    const { id, name, deleteTask } = this.props;
+    const { id, name, time, deleteTask } = this.props;
     return (
       <TokenConsumer>
         {({ token }) => (
@@ -69,15 +80,20 @@ class TaskEvent extends React.Component {
           onMouseEnter={this.handleHover}
           onMouseLeave={this.handleNotHover}
           >
-            <Check onClick={() => deleteTask(id, token)}>
-              {this.state.hovered ?
-                <IconContext.Provider value={{size: 20}}>
-                  <MdCheck />
-                </IconContext.Provider> :
-                null
-              }
-            </Check>
-            <ListElem>{name}</ListElem>
+            <Wrapper>
+              <Check onClick={() => deleteTask(id, token)}>
+                {this.state.hovered ?
+                  <IconContext.Provider value={{size: 20}}>
+                    <MdCheck />
+                  </IconContext.Provider> :
+                  null
+                }
+              </Check>
+              <ListElem>{name}</ListElem>
+            </Wrapper>
+            <Wrapper>
+                <Time>{time}</Time>
+            </Wrapper>
           </Container>
         )}
       </TokenConsumer>

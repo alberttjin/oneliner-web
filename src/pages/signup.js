@@ -145,7 +145,7 @@ class SignUp extends React.Component {
             <ColumnWrapper>
               <InputStyled placeholder={"Email"} onChange={this.handleEmailInput}/>
               <InputStyled placeholder={"Username"} onChange={this.handleUsernameInput}/>
-              <InputStyled placeholder={"Password"} onChange={this.handlePasswordInput}/>
+              <InputStyled type="password" placeholder={"Password"} onChange={this.handlePasswordInput}/>
               <SubmitStyled type="button" onClick={this.handleSubmit}>
               Sign Up!
               </SubmitStyled>

@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { completeTask, getTasks } from "../utils/api";
+import moment from 'moment';
 
+import { completeTask, getTasks } from "../utils/api";
 import TaskEvent from "./task_event";
-import './animations.css';
+import '../css/animations.css';
 
 const Title = styled.p`
   display: flex;
@@ -40,7 +41,7 @@ class Todo extends React.Component {
   }
 
   componentDidMount = async () => {
-    const tasks =  await getTasks(this.props.token, "2018-10-01", "2018-11-01");
+    const tasks =  await getTasks(this.props.token, "2019-02-03", "2019-02-17");
     this.setState({
       todos: tasks,
     });
@@ -59,7 +60,15 @@ class Todo extends React.Component {
     const { title } = this.props;
     const todos = this.state.todos;
     const todos_list = todos.map((todo) => {
-      return <TaskEvent key={todo.id} id={todo.id} name={todo.name} deleteTask={this.deleteTask} type={title}/>;
+      return (
+      <TaskEvent
+        key={todo.id}
+        id={todo.id}
+        name={todo.name}
+        deleteTask={this.deleteTask}
+        time={moment(todo.date).fromNow()}
+        type={title}/>
+      );    
     })
     return (
     <Container>

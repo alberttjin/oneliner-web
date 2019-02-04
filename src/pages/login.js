@@ -147,7 +147,7 @@ class Login extends React.Component {
             </RowWrapper>
             <ColumnWrapper>
               <InputStyled placeholder={"Username"} onChange={this.handleUsernameInput}/>
-              <InputStyled placeholder={"Password"} onChange={this.handlePasswordInput}/>
+              <InputStyled type="password" placeholder={"Password"} onChange={this.handlePasswordInput}/>
               <SubmitStyled type="button" onClick={this.handleSubmit}>
                 Log In
               </SubmitStyled>

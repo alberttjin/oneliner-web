@@ -38,7 +38,10 @@ const SubmitStyled = styled.button`
   &:hover {
     color: #72c9ff;
   }
-  height: 37px;
+  &:focus {
+    outline: none;
+  }
+  height: 35px;
   padding: 0;
   margin: 0;
   padding-right: 5px;
