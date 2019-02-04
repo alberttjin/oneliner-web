@@ -16,10 +16,9 @@ import "../index.css";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
   background-image: url(${Background});
-  background-size: cover;
+  background-size: 100%;
+  ::-webkit-scrollbar {display:none;}
 `
 
 const Wrapper = styled.div`
@@ -44,8 +43,8 @@ class Home extends React.Component {
       return <Redirect to={{pathname: '/'}}/>;
     } else {
       return (
-        <TokenProvider value={{token: this.props.location.state.token}}>
-          <Container>
+        <Container>
+          <TokenProvider value={{token: this.props.location.state.token}}>
             <Header />
             <Greeting />
             <Input />
@@ -53,8 +52,8 @@ class Home extends React.Component {
               <Todo title="Tasks" token={this.props.location.state.token}/>
               <Todo title="Events" token={this.props.location.state.token}/>
             </Wrapper>
-          </Container>
-        </TokenProvider>
+          </TokenProvider>
+        </Container>
       );
     }
   }
