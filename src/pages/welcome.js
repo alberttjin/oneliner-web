@@ -86,7 +86,7 @@ class Welcome extends React.Component {
             <Parallax
               bgImage={require('../assets/images/working.jpg')}
               blur={1}
-              strength={200}
+              strength={1000}
             >
               
               <MDBNavbar style={{backgroundColor: "rgba(0, 0, 0, 0.5)"}} dark expand="md">
