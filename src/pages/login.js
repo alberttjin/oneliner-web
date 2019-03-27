@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
+import { MdClose } from 'react-icons/md';
+import { IconContext } from 'react-icons';
 
 import { login } from "../utils/api";
 import * as consts from "../utils/constants"
@@ -28,6 +30,7 @@ const ModalMain = styled.section`
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
+  border: 3px solid grey;
 `
 
 const InputStyled = styled.input`
@@ -44,15 +47,14 @@ const InputStyled = styled.input`
 
 const SubmitStyled = styled.button`
   font: 1em/1.25em Arial, Helvetica, sans-serif;
-  background: #4accf7;
-  color: white;
   width: 85%;
   height: 35px;
+  border: 2px solid lightgrey;
   border-radius: 5px;
   outline: none;
   cursor: pointer;
   &:hover {
-    background: #39c2ef;
+    background: lightgrey;
   }
 `
 
@@ -64,15 +66,11 @@ const CloseStyled = styled.button`
     color: #828080;
   }
   outline: none;
-  margin-right: 15px;
-  margin-top: 15px;
-  width: 10px;
-  height: 10px;
 `
 const RowWrapper = styled.div`
   display: flex;
-  flex-direction: table-row;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: center;
 `
 
 const ColumnWrapper = styled.div`
@@ -85,7 +83,7 @@ const Title = styled.p`
   font: 1em/1.25em Arial, Helvetica, sans-serif;
   font-size: 12;
   font-weight: 600;
-  padding-left: 7.5%;
+  margin-top: 15px;
 `
 
 class Login extends React.Component {
@@ -134,7 +132,7 @@ class Login extends React.Component {
   }
 
   handleEnter = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && this.props.show) {
       this.handleSubmit();
     }
   }
@@ -151,8 +149,13 @@ class Login extends React.Component {
         <Modal style={show_hide}>
           <ModalMain ref={node => this.node = node}>
             <RowWrapper>
+              {/* <Title></Title> */}
               <Title>Login</Title>
-              <CloseStyled onClick={handleClose}>X</CloseStyled>
+              {/* <CloseStyled onClick={handleClose}>
+                <IconContext.Provider value={{size: 20}}>
+                  <MdClose />
+                </IconContext.Provider>
+              </CloseStyled> */}
             </RowWrapper>
             <ColumnWrapper>
               <InputStyled placeholder={"Username"} onChange={this.handleUsernameInput}/>

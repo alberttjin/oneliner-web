@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
+import { MdClose } from 'react-icons/md';
+import { IconContext } from 'react-icons';
 
 import { signup } from "../utils/api";
 import * as consts from "../utils/constants";
+
+import swal from 'sweetalert';
 
 const Modal = styled.div`
   position: fixed;
@@ -24,6 +28,10 @@ const ModalMain = styled.section`
   transform: translate(-50%,-50%);
   border-radius: 15px;
   padding-bottom: 20px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 3px solid grey;
 `
 
 const InputStyled = styled.input`
@@ -40,15 +48,14 @@ const InputStyled = styled.input`
 
 const SubmitStyled = styled.button`
   font: 1em/1.25em Arial, Helvetica, sans-serif;
-  background: #4accf7;
-  color: white;
   width: 85%;
   height: 35px;
+  border: 2px solid lightgrey;
   border-radius: 5px;
   outline: none;
   cursor: pointer;
   &:hover {
-    background: #39c2ef;
+    background: lightgrey;
   }
 `
 
@@ -60,15 +67,11 @@ const CloseStyled = styled.button`
     color: #828080;
   }
   outline: none;
-  margin-right: 15px;
-  margin-top: 15px;
-  width: 10px;
-  height: 10px;
 `
 const RowWrapper = styled.div`
   display: flex;
-  flex-direction: table-row;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: center;
 `
 
 const ColumnWrapper = styled.div`
@@ -81,7 +84,7 @@ const Title = styled.p`
   font: 1em/1.25em Arial, Helvetica, sans-serif;
   font-size: 12;
   font-weight: 600;
-  padding-left: 7.5%;
+  margin-top: 15px;
 `
 
 class SignUp extends React.Component {
@@ -121,11 +124,20 @@ class SignUp extends React.Component {
 
   handleSubmit = async() => {
     const token = await signup(this.state.username, this.state.email, this.state.password);
-    this.setState({token: token});
+    if (token) {
+      this.setState({token: token});
+    } else {
+      swal({
+        title: "Oops!",
+        text: "Email/Username taken. Try again!",
+        icon: "error",
+      });
+    }
   }
 
   handleEnter = (event) => {
-    if (event.key === 'Enter') {
+    console.log(this.props.show)
+    if (event.key === 'Enter' && this.props.show) {
       this.handleSubmit();
     }
   }
@@ -141,8 +153,13 @@ class SignUp extends React.Component {
         <Modal style={show_hide}>
           <ModalMain ref={node => this.node = node}>
             <RowWrapper>
+              {/* <Title></Title> */}
               <Title>Sign Up!</Title>
-              <CloseStyled onClick={handleClose}>X</CloseStyled>
+              {/* <CloseStyled onClick={handleClose}>
+                <IconContext.Provider value={{size: 20}}>
+                  <MdClose />
+                </IconContext.Provider>
+              </CloseStyled> */}
             </RowWrapper>
             <ColumnWrapper>
               <InputStyled placeholder={"Email"} onChange={this.handleEmailInput}/>

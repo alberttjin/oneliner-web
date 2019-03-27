@@ -68,7 +68,7 @@ class Input extends React.Component {
     this.setState({value: event.target.value});
   }
 
-  handleSubmit = (token, event) => {
+  handleSubmit = (token) => {
     const to_send = parse(this.state.value);
     let success;
     if (to_send['is_event']){
@@ -76,7 +76,7 @@ class Input extends React.Component {
     } else {
       success = addTask(token, to_send);
     }
-    if (success.ok) {
+    if (success) {
       window.location.reload();
     } else {
       swal({
@@ -86,6 +86,13 @@ class Input extends React.Component {
       });
     }
   }
+
+  handleEnter = (event) => {
+    if (event.key === 'Enter') {
+      this.handleSubmit(this.props.token);
+    }
+  }
+
 
   render() {
     const placeholder = "Try \"math howework due in 2 days\""

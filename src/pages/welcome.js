@@ -96,11 +96,11 @@ class Welcome extends React.Component {
                   <MDBNavbarNav left>
                   </MDBNavbarNav>
                   <MDBNavbarNav right>
-                    <MDBNavItem className="px-3">
+                    {/* <MDBNavItem className="px-3">
                       <MDBNavLink className="waves-effect waves-light" to="">
                         <MDBIcon icon="cog" className="mr-1" /> Settings
                       </MDBNavLink>
-                    </MDBNavItem>
+                    </MDBNavItem> */}
                     <MDBNavItem className="px-3">
                       <MDBDropdown>
                         <MDBDropdownToggle nav caret>

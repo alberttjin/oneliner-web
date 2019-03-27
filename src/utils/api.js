@@ -144,7 +144,7 @@ export const addTask = async (token, data) => {
     },
     body: JSON.stringify(task)
   })
-  return response;
+  return response.ok;
 }
 
 export const addEvent = async (token, data) => {
@@ -164,5 +164,5 @@ export const addEvent = async (token, data) => {
     },
     body: JSON.stringify(event)
   })
-  return response;
+  return response.ok;
 }
