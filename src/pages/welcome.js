@@ -126,17 +126,6 @@ class Welcome extends React.Component {
               </Header_Container>
             
             </Parallax>
-            <Parallax 
-              strength={1000}
-              blur={2}
-              bgImage={require('../assets/images/sana.jpg')}
-              style={{
-                border: "30px solid white"
-              }}
-            >
-              <Header_Container></Header_Container>
-              
-            </Parallax>
           </div>
       );
     }

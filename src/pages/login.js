@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import { login } from "../utils/api";
 import * as consts from "../utils/constants"
+import swal from 'sweetalert';
 
 const Modal = styled.div`
   position: fixed;
@@ -121,7 +122,15 @@ class Login extends React.Component {
 
   handleSubmit = async() => {
     const token = await login(this.state.username, this.state.password);
-    this.setState({token: token});
+    if (token) {
+      this.setState({token: token});
+    } else {
+      swal({
+        title: "Oops!",
+        text: "Invalid login credentials. Try again!",
+        icon: "error",
+      });
+    }
   }
 
   handleEnter = (event) => {

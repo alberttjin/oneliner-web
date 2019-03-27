@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import moment from 'moment';
 
-import { completeTask, getTasks } from "../utils/api";
+import { completeTask, getTasks, getEvents, completeEvent } from "../utils/api";
 import TaskEvent from "./task_event";
 import '../css/animations.css';
 
@@ -29,27 +29,30 @@ const Container = styled.div`
   overflow-y: scroll;
   ::-webkit-scrollbar {display:none;}
 `
-const List = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-`
+
 class Todo extends React.Component {
   state = {
+    is_tasks: false,
     todos: []
   }
 
   componentDidMount = async () => {
-    const tasks =  await getTasks(this.props.token, "2019-02-03", "2019-02-17");
+    const today = moment();
+    const until = moment().add(2, 'weeks');
+    let todos;
+    this.state.is_tasks = this.props.title == "Tasks"
+    if (this.state.is_tasks) {
+      todos =  await getTasks(this.props.token, today.format('YYYY-MM-DD'), until.format('YYYY-MM-DD'));
+    } else {
+      todos =  await getEvents(this.props.token, today.format('YYYY-MM-DD'), until.format('YYYY-MM-DD'));
+    }
     this.setState({
-      todos: tasks,
+      todos: todos,
     });
   }
 
-  deleteTask = (id, token) => {
-    console.log(token)
-    completeTask(token, id);
+  deleteTodo = (id, token) => {
+    this.state.is_tasks ? completeTask(token, id): completeEvent(token, id);
     const filtered_todos = this.state.todos.filter(todo => todo.id != id);
     this.setState({
       todos: filtered_todos,
@@ -58,17 +61,21 @@ class Todo extends React.Component {
 
   render() {
     const { title } = this.props;
-    const todos = this.state.todos;
-    const todos_list = todos.map((todo) => {
+    const todos = [...this.state.todos];
+    const today = moment();
+    console.log(todos.sort((a, b) => moment(a.date, 'YYYY-MM-DD').diff(moment(b.date, 'YYYY-MM-DD'))))
+    const todos_list = todos
+      .map((todo) => {
       return (
       <TaskEvent
         key={todo.id}
         id={todo.id}
         name={todo.name}
-        deleteTask={this.deleteTask}
-        time={moment(todo.date).fromNow()}
+        deleteTodo={this.deleteTodo}
+        time={this.state.is_tasks ? moment(todo.date).fromNow(): moment(todo.start_date).fromNow()}
+        overdue={this.state.is_tasks ? moment(todo.date) < today: moment(todo.start_date) < today}
         type={title}/>
-      );    
+      );
     })
     return (
     <Container>

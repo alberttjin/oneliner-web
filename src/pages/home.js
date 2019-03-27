@@ -44,10 +44,11 @@ class Home extends React.Component {
     } else {
       return (
         <Container>
+
           <TokenProvider value={{token: this.props.location.state.token}}>
             <Header />
             <Greeting />
-            <Input />
+            <Input token={this.props.location.state.token}/>
             <Wrapper>
               <Todo title="Tasks" token={this.props.location.state.token}/>
               <Todo title="Events" token={this.props.location.state.token}/>

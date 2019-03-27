@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 
-const Container = styled.form`
+import { addTask, addEvent } from "../utils/api";
+import { parse } from "../utils/parser";
+import swal from 'sweetalert';
+
+const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -52,21 +56,43 @@ class Input extends React.Component {
     value: '',
   }
 
+  componentWillMount = () => {
+    document.addEventListener('keydown', this.handleEnter);
+  }
+
+  componentWillUnmount = () => {
+    document.removeEventListener('keydown', this.handleEnter);
+  }
+
   handleChange = (event) => {
     this.setState({value: event.target.value});
   }
 
-  handleSubmit = (event) => {
-    alert(this.state.value);
-    event.preventDefault();
+  handleSubmit = (token, event) => {
+    const to_send = parse(this.state.value);
+    let success;
+    if (to_send['is_event']){
+      success = addEvent(token, to_send);
+    } else {
+      success = addTask(token, to_send);
+    }
+    if (success.ok) {
+      window.location.reload();
+    } else {
+      swal({
+        title: "Oops!",
+        text: "We could not parse the query you entered. Try again!",
+        icon: "error",
+      });
+    }
   }
 
   render() {
-    const placeholder = "Try \"Math homework due in 3 days\""
+    const placeholder = "Try \"math howework due in 2 days\""
     return (
-      <Container onSubmit={this.handleSubmit}>
+      <Container>
         <InputStyled type="text" placeholder = {placeholder} onChange={this.handleChange} />
-        <SubmitStyled type="submit">
+        <SubmitStyled onClick={() => this.handleSubmit(this.props.token)}>
           <IconContext.Provider value={{size: 20}}>
             <MdKeyboardArrowRight />
           </IconContext.Provider>

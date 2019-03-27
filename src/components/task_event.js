@@ -24,6 +24,7 @@ const Container = styled.div`
     background: #e0e0e0;
   }
   justify-content: space-between;
+  align-items: center;
 `
 
 const Check = styled.button`
@@ -46,9 +47,18 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
 `
+
 const Time = styled.p`
   color: grey;
   font-size: 12px;
+  padding: 0;
+  margin: 0;
+  padding-right: 5px;
+`
+
+const Overdue = styled.p`
+  font-size: 12px;
+  color: red;
   padding: 0;
   margin: 0;
 `
@@ -71,17 +81,17 @@ class TaskEvent extends React.Component {
   }
   
   render() {
-    const { id, name, time, deleteTask } = this.props;
+    const { id, name, time, deleteTodo, overdue } = this.props;
+    const show_overdue = overdue ? <Overdue>Overdue</Overdue> : null
     return (
       <TokenConsumer>
         {({ token }) => (
           <Container
           onMouseOverCapture={this.handleHover}
-          onMouseEnter={this.handleHover}
           onMouseLeave={this.handleNotHover}
           >
             <Wrapper>
-              <Check onClick={() => deleteTask(id, token)}>
+              <Check onClick={() => deleteTodo(id, token)}>
                 {this.state.hovered ?
                   <IconContext.Provider value={{size: 20}}>
                     <MdCheck />
@@ -91,8 +101,9 @@ class TaskEvent extends React.Component {
               </Check>
               <ListElem>{name}</ListElem>
             </Wrapper>
+            <Wrapper>{show_overdue}</Wrapper>
             <Wrapper>
-                <Time>{time}</Time>
+              <Time>{time}</Time>
             </Wrapper>
           </Container>
         )}
