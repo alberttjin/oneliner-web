@@ -31,11 +31,6 @@ class Header extends React.Component {
           </MDBNavbarNav>
           <MDBNavbarNav right>
             <MDBNavItem className="px-3">
-              <MDBNavLink className="waves-effect waves-light" to="">
-                <MDBIcon icon="cog" className="mr-1" /> Settings
-              </MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem className="px-3">
               <MDBDropdown>
                 <MDBDropdownToggle nav caret>
                   <MDBIcon icon="user" className="mr-1" />Profile
