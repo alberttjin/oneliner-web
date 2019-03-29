@@ -1,5 +1,5 @@
 export const login = async (username, password) => {
-  const response = await fetch('http://oneliner.c2v8zf9m6r.us-west-2.elasticbeanstalk.com/api/login', {
+  const response = await fetch('https://oneliner-server.com/api/login', {
     method: 'POST',
     headers: {
         'Accept': 'application/json',
@@ -20,7 +20,7 @@ export const login = async (username, password) => {
 }
 
 export const signup = async (username, email, password) => {
-  const response = await fetch('http://oneliner.c2v8zf9m6r.us-west-2.elasticbeanstalk.com/api/register', {
+  const response = await fetch('https://oneliner-server.com/api/register', {
     method: 'POST',
     headers: {
         'Accept': 'application/json',
@@ -42,7 +42,7 @@ export const signup = async (username, email, password) => {
 }
 
 export const getTasks = async (token, start_date, end_date) => {
-  const response = await fetch(`http://oneliner.c2v8zf9m6r.us-west-2.elasticbeanstalk.com/api/tasks?start_date=${start_date}&end_date=${end_date}`, {
+  const response = await fetch(`https://oneliner-server.com/api/tasks?start_date=${start_date}&end_date=${end_date}`, {
     method: 'GET',
     headers: {
         'Accept': 'application/json',
@@ -68,7 +68,7 @@ export const getTasks = async (token, start_date, end_date) => {
 }
 
 export const getEvents = async (token, start_date, end_date) => {
-  const response = await fetch(`http://oneliner.c2v8zf9m6r.us-west-2.elasticbeanstalk.com/api/events?start_date=${start_date}&end_date=${end_date}`, {
+  const response = await fetch(`https://oneliner-server.com/api/events?start_date=${start_date}&end_date=${end_date}`, {
     method: 'GET',
     headers: {
         'Accept': 'application/json',
@@ -97,7 +97,7 @@ export const getEvents = async (token, start_date, end_date) => {
 }
 
 export const completeTask = async (token, id) => {
-  const response = await fetch('http://oneliner.c2v8zf9m6r.us-west-2.elasticbeanstalk.com/api/complete-task', {
+  const response = await fetch('https://oneliner-server.com/api/complete-task', {
     method: 'POST',
     headers: {
         'Accept': 'application/json',
@@ -112,7 +112,7 @@ export const completeTask = async (token, id) => {
 }
 
 export const completeEvent = async (token, id) => {
-  const response = await fetch('http://oneliner.c2v8zf9m6r.us-west-2.elasticbeanstalk.com/api/complete-event', {
+  const response = await fetch('https://oneliner-server.com/api/complete-event', {
     method: 'POST',
     headers: {
         'Accept': 'application/json',
@@ -135,7 +135,7 @@ export const addTask = async (token, data) => {
     repeat_times: 1,
     repeat_freq: 1,
   }
-  const response = await fetch('http://oneliner.c2v8zf9m6r.us-west-2.elasticbeanstalk.com/api/add-task', {
+  const response = await fetch('https://oneliner-server.com/api/add-task', {
     method: 'POST',
     headers: {
         'Accept': 'application/json',
@@ -155,7 +155,7 @@ export const addEvent = async (token, data) => {
     repeat_times: 1,
     repeat_freq: 1,
   }
-  const response = await fetch('http://oneliner.c2v8zf9m6r.us-west-2.elasticbeanstalk.com/api/add-event', {
+  const response = await fetch('https://oneliner-server.com/api/add-event', {
     method: 'POST',
     headers: {
         'Accept': 'application/json',
